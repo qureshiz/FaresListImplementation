@@ -13,6 +13,7 @@ public class ExcelFunction
 
 	    // Clean Up.
 	    releaseObject(xlApp);
-	    releaseObject(xlWorkBook);
+	    releaseObject(xlWorkBook); 
+        //test
     }
 }
