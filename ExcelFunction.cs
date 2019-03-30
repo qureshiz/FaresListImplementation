@@ -25,7 +25,7 @@ class Excel
 	workbook wb;
 	worksheet ws;
 	
-	public Excel(string path, in sheet)
+	public Excel(string path, int sheet)
 	{
 		this.path = path;
 		wb = excel.Workbooks.Open(path);
