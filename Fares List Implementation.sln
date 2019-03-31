@@ -8,7 +8,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Excel Functions", "Excel Fu
 		ExcelFunction.cs = ExcelFunction.cs
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fares List Implementation Test", "Fares List Implementation Test\Fares List Implementation Test.csproj", "{8AB826CE-23AA-45D8-A05A-9B88F60E6796}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaresListImplementation.Test", "Fares List Implementation Test\FaresListImplementation.Test.csproj", "{8AB826CE-23AA-45D8-A05A-9B88F60E6796}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaresListImplementation", "FaresListImplementation\FaresListImplementation.csproj", "{AA58A599-19A3-4328-80B6-7C9104E0DC04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +22,10 @@ Global
 		{8AB826CE-23AA-45D8-A05A-9B88F60E6796}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AB826CE-23AA-45D8-A05A-9B88F60E6796}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AB826CE-23AA-45D8-A05A-9B88F60E6796}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA58A599-19A3-4328-80B6-7C9104E0DC04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA58A599-19A3-4328-80B6-7C9104E0DC04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA58A599-19A3-4328-80B6-7C9104E0DC04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA58A599-19A3-4328-80B6-7C9104E0DC04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
