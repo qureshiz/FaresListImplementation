@@ -16,10 +16,17 @@ namespace FaresListImplementation
             return File.Exists(path);
         }
 
-        public object ExcelApplication()
+        public Microsoft.Office.Interop.Excel.Workbook OpenExcelWorkBook(string fileName)
         {
+            
+            // Define Excel objects.
             Excel.Application xlApp = new Excel.Application();
-            return xlApp;
+            Excel.Workbook xlWorkBook;
+
+            // Start Excel
+            xlWorkBook = xlApp.Workbooks.Open(fileName);
+
+            return xlWorkBook;
         }
     }
 
