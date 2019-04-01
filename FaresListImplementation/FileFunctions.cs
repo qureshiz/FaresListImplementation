@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Excel = Microsoft.Office.Interop.Excel;
 //using _Excel = Microsoft.Office.Interop.Excel; // Require for Excel.Application instantiation.  This creates an object Excel.
 //Should we also have a using Microsoft.Office.Interop.Excel;
@@ -16,7 +15,7 @@ namespace FaresListImplementation
             return File.Exists(path);
         }
 
-        public Microsoft.Office.Interop.Excel.Workbook OpenExcelWorkBook(string fileName)
+        public Excel.Workbook OpenExcelWorkBook(string fileName)
         {
             
             // Define Excel objects.

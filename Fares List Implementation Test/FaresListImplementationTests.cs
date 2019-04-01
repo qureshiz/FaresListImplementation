@@ -1,6 +1,4 @@
-﻿using System;
-using NUnit.Framework;
-using FaresListImplementation;
+﻿using NUnit.Framework;
 using Excel = Microsoft.Office.Interop.Excel;
 namespace FaresListImplementation.Tests
 {
@@ -20,9 +18,9 @@ namespace FaresListImplementation.Tests
         var fileFunction = new FileFunctions();
         string fileName = @"c:\temp\FaresListImplementation.xlsx";
 
-        //var openedWorkBook = fileFunction.OpenExcelWorkBook(fileName);
+        Excel.Workbook wb = fileFunction.OpenExcelWorkBook(fileName);
 
-           // Assert.IsTrue(openedWorkBook.GetType().ToString() == "Microsoft.Office.Interop.Excel.ApplicationClass");
+            Assert.IsTrue(wb.GetType().ToString() == "Microsoft.Office.Interop.Excel.ApplicationClass");
     }
     }
 }
