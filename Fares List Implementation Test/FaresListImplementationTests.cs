@@ -19,15 +19,21 @@ namespace FaresListImplementation.Tests
            Assert.IsTrue(fileFunction.CheckFileExists(fileName));
         }
     [Test]
-        public void CanOpenExcelWorkBook()
+        public void CanOpenFSITestFileXLS()
         {
-           var fileFunction = new FileFunctions();
+           FileFunctions fileFunction = new FileFunctions();
            string fileName = @"c:\temp\FaresListImplementation.xlsx";
 
-            var openedWorkBook = fileFunction.OpenExcelWorkBook(fileName);
-            Workbook workBook = fileFunction.OpenExcelWorkBook(fileName);
+           Workbook workBook = fileFunction.OpenExcelWorkBook(fileName);
 
-           Assert.IsTrue(openedWorkBook.GetType().ToString() == "Microsoft.Office.Interop.Excel.WorkbookClass");
-    }
+           Assert.IsTrue(workBook.GetType().ToString() == "Microsoft.Office.Interop.Excel.WorkbookClass");
+
+            if (workBook !=null)
+            {
+                workBook.Close();   
+            }
+               
+            
+        }
     }
 }

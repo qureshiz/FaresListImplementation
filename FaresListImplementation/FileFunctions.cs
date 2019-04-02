@@ -27,10 +27,11 @@ namespace FaresListImplementation
 
             //Open the Workbook.
             xlWorkBook = xlApp.Workbooks.Open(fileName);
-
+            
                 return xlWorkBook;
-                        
+ 
         }
+
     }
 
 }
