@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
-using Excel = Microsoft.Office.Interop.Excel;
-//using _Excel = Microsoft.Office.Interop.Excel; // Require for Excel.Application instantiation.  This creates an object Excel.
-//Should we also have a using Microsoft.Office.Interop.Excel;
-//using Microsoft.Office.Interop.Excel;
+//using Excel = Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Interop.Excel;
+
+//Should we also have a using Microsoft.Office.Interop.Excel?
 
 namespace FaresListImplementation
 {
@@ -16,17 +16,20 @@ namespace FaresListImplementation
             return File.Exists(path);
         }
 
-        public Microsoft.Office.Interop.Excel.Workbook OpenExcelWorkBook(string fileName)
+        public Workbook OpenExcelWorkBook(string fileName)
         {
-            
-            // Define Excel objects.
-            Excel.Application xlApp = new Excel.Application();
-            Excel.Workbook xlWorkBook;
 
-            // Start Excel
+            // Define Excel objects.
+            //Excel.Application xlApp = new Excel.Application();
+            Application xlApp = new Application();
+            //Excel.Workbook xlWorkBook;
+            Workbook xlWorkBook;
+
+            //Open the Workbook.
             xlWorkBook = xlApp.Workbooks.Open(fileName);
 
-            return xlWorkBook;
+                return xlWorkBook;
+                        
         }
     }
 
