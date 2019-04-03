@@ -30,16 +30,15 @@ namespace FaresListImplementation.Tests
 
             if (workBook !=null)
             {
+                //workBook.Close();   
                 workBook.Application.Quit();
-                workBook.Close();   
-                
             }
                
         }
         
         // Get Worksheet Count
         [Test]
-        public void GetGetWorksheetCount()
+        public void GetWorksheetCount()
         {
             //Arrange
            FileFunctions fileFunction = new FileFunctions();
