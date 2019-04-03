@@ -32,6 +32,25 @@ namespace FaresListImplementation
  
         }
 
+        public int WorkSheetCount(string fileName)
+        {
+            // Define Excel objects.
+            //Excel.Application xlApp = new Excel.Application();
+            Application xlApp = new Application();
+            //Excel.Workbook xlWorkBook;
+            Workbook xlWorkBook;
+
+            //Open the Workbook.
+            xlWorkBook = xlApp.Workbooks.Open(fileName);
+
+            int workSheetCount = xlWorkBook.Sheets.Count;
+            xlWorkBook.Close(false);
+            xlApp.Quit();
+
+            return workSheetCount;
+
+        }
+
     }
 
 }

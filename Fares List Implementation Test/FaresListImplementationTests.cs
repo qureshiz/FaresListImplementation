@@ -30,10 +30,24 @@ namespace FaresListImplementation.Tests
 
             if (workBook !=null)
             {
+                workBook.Application.Quit();
                 workBook.Close();   
+                
             }
                
-            
+        }
+        
+        // Get Worksheet Count
+        [Test]
+        public void GetGetWorksheetCount()
+        {
+            //Arrange
+           FileFunctions fileFunction = new FileFunctions();
+           string fileName = @"c:\temp\FSITestFileXLS.xlsx";
+           int workSheetCount = fileFunction.WorkSheetCount(fileName);
+
+            Assert.Greater(workSheetCount, 0);
+
         }
     }
 }
