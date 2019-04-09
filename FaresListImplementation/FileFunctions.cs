@@ -51,6 +51,25 @@ namespace FaresListImplementation
 
         }
 
+        public bool RunExcelMacro(string path, string fileName, string macroName)
+        {
+            Application xlApp = new Application();
+            Workbook xlWorkBook;
+
+            //Call the Macro "Test1"
+            string pathFileName = Path.Combine(path, fileName);
+            
+            //Open the Workbook.
+            xlWorkBook = xlApp.Workbooks.Open(pathFileName);
+            xlApp.DisplayAlerts = false;
+            //Call the Macro Test1
+            xlApp.Run(macroName);
+
+            xlWorkBook.Save();
+            xlApp.Quit();
+            return true;
+        }
+
     }
 
 }

@@ -49,5 +49,21 @@ namespace FaresListImplementation.Tests
             Assert.Greater(workSheetCount, 0);
 
         }
+
+        [Test]
+        public void CanCallExcelTestMacro()
+        {
+            //Created Macro Test1 in "C:\temp\FSITestFileXLS.xlsm"
+            //See https://social.msdn.microsoft.com/Forums/lync/en-US/2e33b8e5-c9fd-42a1-8d67-3d61d2cedc1c/how-to-call-excel-macros-programmatically-in-c?forum=exceldev
+            var fileFunctions   = new FileFunctions();
+            //Test that a Macro can be run
+            string path         = @"c:\temp";
+            string fileName     = "FSITestFileXLS.xlsm";
+            string macroName = "Test1";
+
+            Assert.IsTrue(fileFunctions.RunExcelMacro(path, fileName, macroName));
+
+        }
+
     }
 }
