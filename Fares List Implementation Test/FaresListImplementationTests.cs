@@ -22,7 +22,7 @@ namespace FaresListImplementation.Tests
         public void CanOpenFSITestFileXLS()
         {
            FileFunctions fileFunction = new FileFunctions();
-           string fileName = @"c:\temp\FSITestFileXLS.xlsx";
+           string fileName = @"c:\temp\FSITestFileXLS.xlsm";
 
            Workbook workBook = fileFunction.OpenExcelWorkBook(fileName);
 
@@ -32,7 +32,6 @@ namespace FaresListImplementation.Tests
             {
                 workBook.Application.Quit();
                 workBook.Close();   
-                
             }
                
         }

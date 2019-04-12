@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Data;
 using System.IO;
-//using Excel = Microsoft.Office.Interop.Excel;
+using System.Data.SqlClient;
 using Microsoft.Office.Interop.Excel;
 
 //Should we also have a using Microsoft.Office.Interop.Excel?
@@ -61,6 +62,11 @@ namespace FaresListImplementation
             
             //Open the Workbook.
             xlWorkBook = xlApp.Workbooks.Open(pathFileName);
+            
+            /*
+             Suppress Excel Alerts
+            https://docs.microsoft.com/en-us/office/vba/api/excel.application.displayalerts
+            */
             xlApp.DisplayAlerts = false;
             //Call the Macro Test1
             xlApp.Run(macroName);
@@ -70,6 +76,13 @@ namespace FaresListImplementation
             return true;
         }
 
+        //public static DataSet SelectSQLRows(string connectionString, string queryString, string tableName)
+        //{
+        //    using (SqlConnection connection = new SqlConnection(connectionString))
+        //    {
+        //        SqlDataAdapter adapter  = new SqlDataAdapter();
+        //    }
+        //}
     }
 
 }
