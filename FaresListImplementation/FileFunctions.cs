@@ -95,7 +95,7 @@ namespace FaresListImplementation
             //Want to select Worksheet "HQ_Data (1)" in 
 
             //https://social.msdn.microsoft.com/Forums/vstudio/en-US/02419ea7-1666-461e-b9f2-445d82e66322/c-with-excel-how-to-select-a-sheet?forum=vsto
-            Worksheet workSheet = xlWorkBook.Sheets["HQ_Data (1)"] as Worksheet;
+            Worksheet workSheet = xlWorkBook.Sheets[worksheetName] as Worksheet;
 
             return "A";
         }
