@@ -76,6 +76,30 @@ namespace FaresListImplementation
             return true;
         }
 
+        public string SetActiveCell(string path, string fileName, string worksheetName, string xCordinate, string yCordinate)
+        //x and y coordinates
+        {
+
+            /*
+             * Selecting and Activating Cells
+             * https://docs.microsoft.com/en-us/office/vba/excel/concepts/cells-and-ranges/selecting-and-activating-cells
+             */
+            Application xlApp = new Application();
+            Workbook xlWorkBook;
+
+            //Call the Macro "Test1"
+            string pathFileName = Path.Combine(path, fileName);
+
+            //Open the Workbook.
+            xlWorkBook = xlApp.Workbooks.Open(pathFileName);
+            //Want to select Worksheet "HQ_Data (1)" in 
+
+            //https://social.msdn.microsoft.com/Forums/vstudio/en-US/02419ea7-1666-461e-b9f2-445d82e66322/c-with-excel-how-to-select-a-sheet?forum=vsto
+            Worksheet workSheet = xlWorkBook.Sheets["HQ_Data (1)"] as Worksheet;
+
+            return "A";
+        }
+            
         //public static DataSet SelectSQLRows(string connectionString, string queryString, string tableName)
         //{
         //    using (SqlConnection connection = new SqlConnection(connectionString))
