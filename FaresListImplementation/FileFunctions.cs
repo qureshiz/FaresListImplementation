@@ -97,7 +97,15 @@ namespace FaresListImplementation
             //https://social.msdn.microsoft.com/Forums/vstudio/en-US/02419ea7-1666-461e-b9f2-445d82e66322/c-with-excel-how-to-select-a-sheet?forum=vsto
             Worksheet workSheet = xlWorkBook.Sheets[worksheetName] as Worksheet;
 
-            return "A";
+            //https://www.syncfusion.com/kb/4220/how-to-set-an-active-cell-in-a-worksheet
+            workSheet.Range[string.Join(yCordinate,yCordinate),string.Join(yCordinate,yCordinate)].Activate();
+
+            //string cellValue = workSheet.Range[xCordinate, yCordinate].get_Value().ToString();
+            string cellValue = 
+                workSheet.Range[string.Join(yCordinate, yCordinate), string.
+                    Join(yCordinate, yCordinate)].Value2.ToString();
+            
+            return cellValue;
         }
             
         //public static DataSet SelectSQLRows(string connectionString, string queryString, string tableName)

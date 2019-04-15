@@ -63,7 +63,15 @@ namespace FaresListImplementation.Tests
             string macroName = "Test1";
 
             Assert.IsTrue(fileFunctions.RunExcelMacro(path, fileName, macroName));
-
+        }
+        [Test]
+        public void CanGetActiveCellValue()
+        {
+            string path                 = @"c:\temp";
+            string fileName             = "FSITestFileXLS.xlsm";
+            FileFunctions filefunctions = new FileFunctions();
+            string activeCell = filefunctions.SetActiveCell(path, fileName, "sheet1", "A", "2");
+            Assert.AreEqual("Alhumdulillah",activeCell);
         }
 
 
