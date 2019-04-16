@@ -71,9 +71,21 @@ namespace FaresListImplementation.Tests
             string fileName             = "FSITestFileXLS.xlsm";
             FileFunctions filefunctions = new FileFunctions();
             string activeCell = filefunctions.SetActiveCell(path, fileName, "sheet1", "A", "2");
-            Assert.AreEqual("Alhumdulillah",activeCell);
+            Assert.AreEqual("This is the Active Cell",activeCell);
         }
+        [Test]
+        public void CanPassValueToMacro()
+        {
+            string path                 = @"c:\temp";
+            string fileName             = "FSITestFileXLS.xlsm";
+            FileFunctions filefunctions = new FileFunctions();
 
+            string macroName = "MacroWithParameter";
+            string cellValue = filefunctions.PasValueToMacro(path, fileName, macroName, DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss"));
+            string testValue = "I'm a parameter";
 
+            Assert.AreEqual(testValue, "actual");
+
+        }
     }
 }

@@ -87,27 +87,51 @@ namespace FaresListImplementation
             Application xlApp = new Application();
             Workbook xlWorkBook;
 
-            //Call the Macro "Test1"
             string pathFileName = Path.Combine(path, fileName);
 
             //Open the Workbook.
             xlWorkBook = xlApp.Workbooks.Open(pathFileName);
-            //Want to select Worksheet "HQ_Data (1)" in 
 
             //https://social.msdn.microsoft.com/Forums/vstudio/en-US/02419ea7-1666-461e-b9f2-445d82e66322/c-with-excel-how-to-select-a-sheet?forum=vsto
             Worksheet workSheet = xlWorkBook.Sheets[worksheetName] as Worksheet;
 
             //https://www.syncfusion.com/kb/4220/how-to-set-an-active-cell-in-a-worksheet
-            workSheet.Range[string.Join(yCordinate,yCordinate),string.Join(yCordinate,yCordinate)].Activate();
-
+            //workSheet.Range[string.Join(xCordinate,yCordinate),string.Join(xCordinate,yCordinate)].Activate();
+            //workSheet.Range["A2"].Activate();
+            workSheet.Range["A1"].Activate();
             //string cellValue = workSheet.Range[xCordinate, yCordinate].get_Value().ToString();
-            string cellValue = 
-                workSheet.Range[string.Join(yCordinate, yCordinate), string.
-                    Join(yCordinate, yCordinate)].Value2.ToString();
+
+            string activeCellValue = xlApp.ActiveCell.Value.ToString();
+            xlWorkBook.Save();
+            xlApp.Quit();
             
-            return cellValue;
+            return activeCellValue;
         }
-            
+
+        public string PasValueToMacro(string path, string fileName, string macroName, string macroText)
+        {
+            Application xlApp = new Application();
+            Workbook xlWorkBook;
+
+
+            string pathFileName = Path.Combine(path, fileName);
+
+            //Open the Workbook.
+            xlWorkBook = xlApp.Workbooks.Open(pathFileName);
+
+            /*
+            Suppress Excel Alerts
+            https://docs.microsoft.com/en-us/office/vba/api/excel.application.displayalerts
+            */
+            xlApp.DisplayAlerts = false;
+            //Call the Macro MacroWithParameter
+            xlApp.Run(macroName, macroText);
+
+            xlWorkBook.Save();
+            xlApp.Quit();
+            return "Test String";
+
+        }
         //public static DataSet SelectSQLRows(string connectionString, string queryString, string tableName)
         //{
         //    using (SqlConnection connection = new SqlConnection(connectionString))
