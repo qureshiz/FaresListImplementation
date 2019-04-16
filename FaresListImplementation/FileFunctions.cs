@@ -85,6 +85,8 @@ namespace FaresListImplementation
              * https://docs.microsoft.com/en-us/office/vba/excel/concepts/cells-and-ranges/selecting-and-activating-cells
              */
             Application xlApp = new Application();
+            //Suppress Excel Alerts
+            xlApp.DisplayAlerts = false;
             Workbook xlWorkBook;
 
             string pathFileName = Path.Combine(path, fileName);
@@ -98,13 +100,12 @@ namespace FaresListImplementation
             //https://www.syncfusion.com/kb/4220/how-to-set-an-active-cell-in-a-worksheet
             //workSheet.Range[string.Join(xCordinate,yCordinate),string.Join(xCordinate,yCordinate)].Activate();
             //workSheet.Range["A2"].Activate();
-            workSheet.Range["A1"].Activate();
-            //string cellValue = workSheet.Range[xCordinate, yCordinate].get_Value().ToString();
-
+            workSheet.Range[xCordinate + yCordinate].Activate();
             string activeCellValue = xlApp.ActiveCell.Value.ToString();
+
             xlWorkBook.Save();
             xlApp.Quit();
-            
+                        
             return activeCellValue;
         }
 

@@ -15,7 +15,7 @@ namespace FaresListImplementation.Tests
         public void TestFileExists()
         {
            var fileFunction = new FileFunctions();
-           string fileName = @"c:\temp\FaresListImplementation.xlsx";
+           string fileName = @"c:\temp\FSITestFileXLS.xlsm";
            Assert.IsTrue(fileFunction.CheckFileExists(fileName));
         }
     [Test]
@@ -30,10 +30,8 @@ namespace FaresListImplementation.Tests
 
             if (workBook !=null)
             {
-                //workBook.Close();   
+                //workBook.Close();
                 workBook.Application.Quit();
-                workBook.Close();   
-                
             }
                
         }
