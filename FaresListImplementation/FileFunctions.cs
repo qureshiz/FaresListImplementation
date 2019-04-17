@@ -95,8 +95,7 @@ namespace FaresListImplementation
             Worksheet workSheet = xlWorkBook.Sheets[worksheetName] as Worksheet;
 
             //https://www.syncfusion.com/kb/4220/how-to-set-an-active-cell-in-a-worksheet
-            //workSheet.Range[string.Join(xCordinate,yCordinate),string.Join(xCordinate,yCordinate)].Activate();
-            //workSheet.Range["A2"].Activate();
+
             workSheet.Range[xCordinate + yCordinate].Activate();
             string activeCellValue = xlApp.ActiveCell.Value.ToString();
 
@@ -126,7 +125,26 @@ namespace FaresListImplementation
             xlWorkBook.Save();
             xlApp.Quit();
             return "Test String";
+        }
 
+        public string GetCallValue(string path, string fileName, string worksheetName, string xCordinate,
+            string yCordinate)
+        {
+            Application xlApp = new Application();
+            Workbook xlWorkBook;
+
+            string pathFileName = Path.Combine(path, fileName);
+
+            //Open the Workbook.
+            xlWorkBook = xlApp.Workbooks.Open(pathFileName);
+
+            //Suppress Excel Alerts
+            https://docs.microsoft.com/en-us/office/vba/api/excel.application.displayalerts
+            xlApp.DisplayAlerts = false;
+
+            Worksheet workSheet = xlWorkBook.Sheets[worksheetName] as Worksheet;
+
+            return "";
         }
 
         //public static DataSet SelectSQLRows(string connectionString, string queryString, string tableName)

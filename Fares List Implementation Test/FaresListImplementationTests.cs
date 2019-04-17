@@ -92,6 +92,11 @@ namespace FaresListImplementation.Tests
             string testValue = "I'm a parameter";
 
             Assert.AreEqual(testValue, "actual");
+        }
+
+        [Test]
+        public void CanGetCellValue()
+        {
 
         }
     }
