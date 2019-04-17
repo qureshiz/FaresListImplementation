@@ -1,30 +1,37 @@
-﻿using System;
-using NUnit.Framework;
-using FaresListImplementation;
-//using Excel = Microsoft.Office.Interop.Excel;
+﻿//using Excel = Microsoft.Office.Interop.Excel;
 //using Microsoft.Office.Interop.Excel;
 //using Interop.Microfoft.Office.Interop.Excel;
 using Microsoft.Office.Interop.Excel;
-
+using NUnit.Framework;
+using System;
+using System.Configuration;
 namespace FaresListImplementation.Tests
 {
+    class Global
+    {
+        public static string testFileLocation = ConfigurationManager.AppSettings["TestFileLocation"];
+        public static string excelTestFile = "FSITestFileXLS.xlsm";
+    }
     [TestFixture]
     public class FileTests
+        
     {
         [Test]
         public void TestFileExists()
         {
-           var fileFunction = new FileFunctions();
-           string fileName = @"c:\temp\FSITestFileXLS.xlsm";
-           Assert.IsTrue(fileFunction.CheckFileExists(fileName));
+            FileFunctions fileFunction = new FileFunctions();
+
+            //appSettings.
+            //https://www.c-sharpcorner.com/article/four-ways-to-read-configuration-setting-in-c-sharp/
+            
+            Assert.IsTrue(fileFunction.CheckFileExists(string.Concat(Global.testFileLocation,Global.excelTestFile)));
         }
     [Test]
         public void CanOpenFSITestFileXLS()
         {
            FileFunctions fileFunction = new FileFunctions();
-           string fileName = @"c:\temp\FSITestFileXLS.xlsm";
-
-           Workbook workBook = fileFunction.OpenExcelWorkBook(fileName);
+            
+           Workbook workBook = fileFunction.OpenExcelWorkBook(string.Concat(Global.testFileLocation,Global.excelTestFile));
 
            Assert.IsTrue(workBook.GetType().ToString() == "Microsoft.Office.Interop.Excel.WorkbookClass");
 
@@ -54,32 +61,34 @@ namespace FaresListImplementation.Tests
         {
             //Created Macro Test1 in "C:\temp\FSITestFileXLS.xlsm"
             //See https://social.msdn.microsoft.com/Forums/lync/en-US/2e33b8e5-c9fd-42a1-8d67-3d61d2cedc1c/how-to-call-excel-macros-programmatically-in-c?forum=exceldev
-            var fileFunctions   = new FileFunctions();
-            //Test that a Macro can be run
-            string path         = @"c:\temp";
-            string fileName     = "FSITestFileXLS.xlsm";
+            FileFunctions fileFunctions   = new FileFunctions();
             string macroName = "Test1";
 
-            Assert.IsTrue(fileFunctions.RunExcelMacro(path, fileName, macroName));
+            Assert.IsTrue(fileFunctions.RunExcelMacro(Global.testFileLocation, Global.excelTestFile, macroName));
         }
         [Test]
         public void CanGetActiveCellValue()
         {
-            string path                 = @"c:\temp";
-            string fileName             = "FSITestFileXLS.xlsm";
             FileFunctions filefunctions = new FileFunctions();
-            string activeCell = filefunctions.SetActiveCell(path, fileName, "sheet1", "A", "2");
+
+            string activeCell = filefunctions.SetActiveCell(Global.testFileLocation, Global.excelTestFile, "sheet1", "A", "2");
             Assert.AreEqual("This is the Active Cell",activeCell);
+
         }
         [Test]
         public void CanPassValueToMacro()
         {
-            string path                 = @"c:\temp";
-            string fileName             = "FSITestFileXLS.xlsm";
             FileFunctions filefunctions = new FileFunctions();
 
-            string macroName = "MacroWithParameter";
-            string cellValue = filefunctions.PasValueToMacro(path, fileName, macroName, DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss"));
+            string macroName = "Test2MacroWithParameter";
+            string dateValue  = DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss"
+            string cellValue = filefunctions.PasValueToMacro(
+                            Global.testFileLocation, 
+                            Global.excelTestFile, 
+                            macroName, 
+                            DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss")
+                            );
+
             string testValue = "I'm a parameter";
 
             Assert.AreEqual(testValue, "actual");

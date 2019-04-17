@@ -21,7 +21,6 @@ namespace FaresListImplementation
         {
 
             // Define Excel objects.
-            //Excel.Application xlApp = new Excel.Application();
             Application xlApp = new Application();
             //Excel.Workbook xlWorkBook;
             Workbook xlWorkBook;
@@ -36,7 +35,6 @@ namespace FaresListImplementation
         public int WorkSheetCount(string fileName)
         {
             // Define Excel objects.
-            //Excel.Application xlApp = new Excel.Application();
             Application xlApp = new Application();
             //Excel.Workbook xlWorkBook;
             Workbook xlWorkBook;
@@ -80,10 +78,9 @@ namespace FaresListImplementation
         //x and y coordinates
         {
 
-            /*
-             * Selecting and Activating Cells
-             * https://docs.microsoft.com/en-us/office/vba/excel/concepts/cells-and-ranges/selecting-and-activating-cells
-             */
+             //Selecting and Activating Cells
+             //https://docs.microsoft.com/en-us/office/vba/excel/concepts/cells-and-ranges/selecting-and-activating-cells
+
             Application xlApp = new Application();
             //Suppress Excel Alerts
             xlApp.DisplayAlerts = false;
@@ -114,17 +111,15 @@ namespace FaresListImplementation
             Application xlApp = new Application();
             Workbook xlWorkBook;
 
-
             string pathFileName = Path.Combine(path, fileName);
 
             //Open the Workbook.
             xlWorkBook = xlApp.Workbooks.Open(pathFileName);
 
-            /*
-            Suppress Excel Alerts
+            //Suppress Excel Alerts
             https://docs.microsoft.com/en-us/office/vba/api/excel.application.displayalerts
-            */
             xlApp.DisplayAlerts = false;
+
             //Call the Macro MacroWithParameter
             xlApp.Run(macroName, macroText);
 
@@ -133,6 +128,7 @@ namespace FaresListImplementation
             return "Test String";
 
         }
+
         //public static DataSet SelectSQLRows(string connectionString, string queryString, string tableName)
         //{
         //    using (SqlConnection connection = new SqlConnection(connectionString))
