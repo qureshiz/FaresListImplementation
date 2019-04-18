@@ -82,11 +82,12 @@ namespace FaresListImplementation.Tests
 
             string macroName = "Test2MacroWithParameter";
             string passValue = "zishan";
-            //Macro "Test2MacroWithParameter" writes to Cell A3.
-            string cellValue = filefunctions.PasValueToMacro(Global.testFileLocation,Global.excelTestFile,macroName, passValue);
+            //Macro "Test2MacroWithParameter" writes to Cell C1.
+            filefunctions.PasValueToMacro(Global.testFileLocation,Global.excelTestFile,macroName, passValue);
 
-            
-            Assert.AreEqual("", "actual");
+            string cellValue = filefunctions.GetCallValue(Global.testFileLocation, Global.excelTestFile, "Sheet1", "C1");
+
+            Assert.AreEqual(passValue, cellValue);
         }
 
         [Test]

@@ -104,7 +104,7 @@ namespace FaresListImplementation
             return activeCellValue;
         }
 
-        public string PasValueToMacro(string path, string fileName, string macroName, string macroText)
+        public void PasValueToMacro(string path, string fileName, string macroName, string macroText)
         {
             Application xlApp = new Application();
             Workbook xlWorkBook;
@@ -123,7 +123,7 @@ namespace FaresListImplementation
 
             xlWorkBook.Save();
             xlApp.Quit();
-            return "Test String";
+
         }
 
         public string GetCallValue(string path, string fileName, string worksheetName, string cellCordinate)
