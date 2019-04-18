@@ -10,7 +10,7 @@ namespace FaresListImplementation.Tests
     class Global
     {
         public static string testFileLocation = ConfigurationManager.AppSettings["TestFileLocation"];
-        public static string excelTestFile = "FSITestFileXLS.xlsm";
+        public static string excelTestFile = ConfigurationManager.AppSettings["TestExcelFile"];
     }
     [TestFixture]
     public class FileTests
@@ -81,23 +81,21 @@ namespace FaresListImplementation.Tests
             FileFunctions filefunctions = new FileFunctions();
 
             string macroName = "Test2MacroWithParameter";
-            string dateValue  = DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss"
-            string cellValue = filefunctions.PasValueToMacro(
-                            Global.testFileLocation, 
-                            Global.excelTestFile, 
-                            macroName, 
-                            DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss")
-                            );
+            string passValue = "zishan";
+            //Macro "Test2MacroWithParameter" writes to Cell A3.
+            string cellValue = filefunctions.PasValueToMacro(Global.testFileLocation,Global.excelTestFile,macroName, passValue);
 
-            string testValue = "I'm a parameter";
-
-            Assert.AreEqual(testValue, "actual");
+            
+            Assert.AreEqual("", "actual");
         }
 
         [Test]
         public void CanGetCellValue()
         {
-
+            FileFunctions filefunctions = new FileFunctions();
+            string testFileName = Global.excelTestFile;
+            string cellValue = filefunctions.GetCallValue(Global.testFileLocation, Global.excelTestFile, "Sheet1","a2");
+            Assert.AreEqual("This is the Active Cell", cellValue);
         }
     }
 }

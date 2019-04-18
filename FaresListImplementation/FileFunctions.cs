@@ -29,8 +29,7 @@ namespace FaresListImplementation
             xlWorkBook = xlApp.Workbooks.Open(fileName);
             
                 return xlWorkBook;
- 
-        }
+         }
 
         public int WorkSheetCount(string fileName)
         {
@@ -116,19 +115,18 @@ namespace FaresListImplementation
             xlWorkBook = xlApp.Workbooks.Open(pathFileName);
 
             //Suppress Excel Alerts
-            https://docs.microsoft.com/en-us/office/vba/api/excel.application.displayalerts
+            //https://docs.microsoft.com/en-us/office/vba/api/excel.application.displayalerts
             xlApp.DisplayAlerts = false;
 
             //Call the Macro MacroWithParameter
-            xlApp.Run(macroName, macroText);
+            var x = xlApp.Run(macroName, macroText);
 
             xlWorkBook.Save();
             xlApp.Quit();
             return "Test String";
         }
 
-        public string GetCallValue(string path, string fileName, string worksheetName, string xCordinate,
-            string yCordinate)
+        public string GetCallValue(string path, string fileName, string worksheetName, string cellCordinate)
         {
             Application xlApp = new Application();
             Workbook xlWorkBook;
@@ -139,12 +137,13 @@ namespace FaresListImplementation
             xlWorkBook = xlApp.Workbooks.Open(pathFileName);
 
             //Suppress Excel Alerts
-            https://docs.microsoft.com/en-us/office/vba/api/excel.application.displayalerts
+            //https://docs.microsoft.com/en-us/office/vba/api/excel.application.displayalerts
             xlApp.DisplayAlerts = false;
 
             Worksheet workSheet = xlWorkBook.Sheets[worksheetName] as Worksheet;
-
-            return "";
+            //
+            var cellValue = workSheet.Range[cellCordinate].Value2;
+            return cellValue.ToString();
         }
 
         //public static DataSet SelectSQLRows(string connectionString, string queryString, string tableName)
