@@ -10,14 +10,14 @@ namespace FaresListImplementation
 {
     public class FileFunctions
     {
-        public bool CheckFileExists(string path)
+        public bool CheckFileExists(string pathFileName)
         {
             //Hard code the name of a file for now.
 
-            return File.Exists(path);
+            return File.Exists(pathFileName);
         }
 
-        public Workbook OpenExcelWorkBook(string fileName)
+        public Workbook OpenExcelWorkBook(string pathFileName)
         {
 
             // Define Excel objects.
@@ -26,7 +26,7 @@ namespace FaresListImplementation
             Workbook xlWorkBook;
 
             //Open the Workbook.
-            xlWorkBook = xlApp.Workbooks.Open(fileName);
+            xlWorkBook = xlApp.Workbooks.Open(pathFileName);
             
                 return xlWorkBook;
          }
@@ -73,7 +73,15 @@ namespace FaresListImplementation
             return true;
         }
 
-        public string SetActiveCell(string path, string fileName, string worksheetName, string xCordinate, string yCordinate)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="fileName"></param>
+        /// <param name="worksheetName"></param>
+        /// <param name="xCordinate"></param>
+        /// <param name="yCordinate"></param>
+        public void SetActiveCell(string path, string fileName, string worksheetName, string xCordinate, string yCordinate)
         //x and y coordinates
         {
 
@@ -81,14 +89,11 @@ namespace FaresListImplementation
              //https://docs.microsoft.com/en-us/office/vba/excel/concepts/cells-and-ranges/selecting-and-activating-cells
 
             Application xlApp = new Application();
-            //Suppress Excel Alerts
             xlApp.DisplayAlerts = false;
-            Workbook xlWorkBook;
-
-            string pathFileName = Path.Combine(path, fileName);
+            Workbook xlWorkBook = xlApp.Workbooks.Open(Path.Combine(path, fileName));
 
             //Open the Workbook.
-            xlWorkBook = xlApp.Workbooks.Open(pathFileName);
+            //xlWorkBook = xlApp.Workbooks.Open(Path.Combine(path, fileName));
 
             //https://social.msdn.microsoft.com/Forums/vstudio/en-US/02419ea7-1666-461e-b9f2-445d82e66322/c-with-excel-how-to-select-a-sheet?forum=vsto
             Worksheet workSheet = xlWorkBook.Sheets[worksheetName] as Worksheet;
@@ -96,12 +101,21 @@ namespace FaresListImplementation
             //https://www.syncfusion.com/kb/4220/how-to-set-an-active-cell-in-a-worksheet
 
             workSheet.Range[xCordinate + yCordinate].Activate();
-            string activeCellValue = xlApp.ActiveCell.Value.ToString();
 
             xlWorkBook.Save();
             xlApp.Quit();
                         
-            return activeCellValue;
+            //return activeCellValue;
+        }
+
+        public void SetActiveCell(Worksheet worksheet, string xCordinate, string yCordinate)
+        {
+            worksheet.Range[xCordinate+yCordinate, xCordinate+yCordinate].Activate();
+        }
+
+        public string GetActiveCellValue(Application application)
+        {
+            return application.ActiveCell.Value.ToString();
         }
 
         public void PasValueToMacro(string path, string fileName, string macroName, string macroText)
@@ -109,24 +123,22 @@ namespace FaresListImplementation
             Application xlApp = new Application();
             Workbook xlWorkBook;
 
-            string pathFileName = Path.Combine(path, fileName);
-
             //Open the Workbook.
-            xlWorkBook = xlApp.Workbooks.Open(pathFileName);
+            xlWorkBook = xlApp.Workbooks.Open(Path.Combine(path, fileName));
 
             //Suppress Excel Alerts
             //https://docs.microsoft.com/en-us/office/vba/api/excel.application.displayalerts
             xlApp.DisplayAlerts = false;
 
             //Call the Macro MacroWithParameter
-            var x = xlApp.Run(macroName, macroText);
+            xlApp.Run(macroName, macroText);
 
             xlWorkBook.Save();
             xlApp.Quit();
 
         }
 
-        public string GetCallValue(string path, string fileName, string worksheetName, string cellCordinate)
+        public string GetCellValue(string path, string fileName, string worksheetName, string cellCordinate)
         {
             Application xlApp = new Application();
             Workbook xlWorkBook;
@@ -146,13 +158,6 @@ namespace FaresListImplementation
             return cellValue.ToString();
         }
 
-        //public static DataSet SelectSQLRows(string connectionString, string queryString, string tableName)
-        //{
-        //    using (SqlConnection connection = new SqlConnection(connectionString))
-        //    {
-        //        SqlDataAdapter adapter  = new SqlDataAdapter();
-        //    }
-        //}
     }
 
 }

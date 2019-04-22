@@ -5,12 +5,14 @@ using Microsoft.Office.Interop.Excel;
 using NUnit.Framework;
 using System;
 using System.Configuration;
+using System.IO;
 namespace FaresListImplementation.Tests
 {
     class Global
     {
         public static string testFileLocation = ConfigurationManager.AppSettings["TestFileLocation"];
         public static string excelTestFile = ConfigurationManager.AppSettings["TestExcelFile"];
+        public static string siteLists_xlxs = ConfigurationManager.AppSettings["SiteLists_xlsx"];
     }
     [TestFixture]
     public class FileTests
@@ -21,17 +23,13 @@ namespace FaresListImplementation.Tests
         {
             FileFunctions fileFunction = new FileFunctions();
 
-            //appSettings.
-            //https://www.c-sharpcorner.com/article/four-ways-to-read-configuration-setting-in-c-sharp/
-            
-            Assert.IsTrue(fileFunction.CheckFileExists(string.Concat(Global.testFileLocation,Global.excelTestFile)));
+            Assert.IsTrue(fileFunction.CheckFileExists(Path.Combine(Global.testFileLocation, Global.excelTestFile)));
         }
     [Test]
         public void CanOpenFSITestFileXLS()
         {
            FileFunctions fileFunction = new FileFunctions();
-            
-           Workbook workBook = fileFunction.OpenExcelWorkBook(string.Concat(Global.testFileLocation,Global.excelTestFile));
+           Workbook workBook = fileFunction.OpenExcelWorkBook(Path.Combine("Global.testFileLocation", "Global.excelTestFile"));
 
            Assert.IsTrue(workBook.GetType().ToString() == "Microsoft.Office.Interop.Excel.WorkbookClass");
 
@@ -40,7 +38,6 @@ namespace FaresListImplementation.Tests
                 //workBook.Close();
                 workBook.Application.Quit();
             }
-               
         }
         
         // Get Worksheet Count
@@ -53,7 +50,6 @@ namespace FaresListImplementation.Tests
            int workSheetCount = fileFunction.WorkSheetCount(fileName);
 
             Assert.Greater(workSheetCount, 0);
-
         }
 
         [Test]
@@ -67,12 +63,17 @@ namespace FaresListImplementation.Tests
             Assert.IsTrue(fileFunctions.RunExcelMacro(Global.testFileLocation, Global.excelTestFile, macroName));
         }
         [Test]
-        public void CanGetActiveCellValue()
+        public void CanSetActiveCellValue()
         {
             FileFunctions filefunctions = new FileFunctions();
 
-            string activeCell = filefunctions.SetActiveCell(Global.testFileLocation, Global.excelTestFile, "sheet1", "A", "2");
-            Assert.AreEqual("This is the Active Cell",activeCell);
+            Workbook xlWorkBook = filefunctions.OpenExcelWorkBook(Path.Combine(Global.testFileLocation, Global.excelTestFile));
+            Worksheet workSheet = xlWorkBook.Sheets["Sheet1"] as Worksheet;
+            filefunctions.SetActiveCell(workSheet, "A", "2");
+            string activeCellValue = filefunctions.GetActiveCellValue(workSheet.Application);
+            Assert.AreEqual("This is the Active Cell",activeCellValue);
+            xlWorkBook.Close();
+            xlWorkBook.Application.Quit();
 
         }
         [Test]
@@ -85,7 +86,7 @@ namespace FaresListImplementation.Tests
             //Macro "Test2MacroWithParameter" writes to Cell C1.
             filefunctions.PasValueToMacro(Global.testFileLocation,Global.excelTestFile,macroName, passValue);
 
-            string cellValue = filefunctions.GetCallValue(Global.testFileLocation, Global.excelTestFile, "Sheet1", "C1");
+            string cellValue = filefunctions.GetCellValue(Global.testFileLocation, Global.excelTestFile, "Sheet1", "C1");
 
             Assert.AreEqual(passValue, cellValue);
         }
@@ -94,9 +95,30 @@ namespace FaresListImplementation.Tests
         public void CanGetCellValue()
         {
             FileFunctions filefunctions = new FileFunctions();
-            string testFileName = Global.excelTestFile;
-            string cellValue = filefunctions.GetCallValue(Global.testFileLocation, Global.excelTestFile, "Sheet1","a2");
+            string cellValue = filefunctions.GetCellValue(Global.testFileLocation, Global.excelTestFile, "Sheet1","a2");
             Assert.AreEqual("This is the Active Cell", cellValue);
         }
+
+        [Test]
+        public void SiteLists_xlsxExists()
+        {
+            FileFunctions filefunctions = new FileFunctions();
+            string pathFileName = Path.Combine(Global.testFileLocation, Global.siteLists_xlxs);
+
+            Assert.IsTrue(filefunctions.CheckFileExists(pathFileName));
+        }
+        [Test]
+        public void CanOpenSiteLists_xlsx()
+        {
+            FileFunctions filefunctions = new FileFunctions();
+            Workbook workBook = filefunctions.OpenExcelWorkBook(Path.Combine(Global.testFileLocation, Global.siteLists_xlxs));
+            Assert.IsTrue(workBook.GetType().ToString() == "Microsoft.Office.Interop.Excel.WorkbookClass");
+            if (workBook != null)
+            {
+                //workBook.Close();
+                workBook.Application.Quit();
+            }
+        }
     }
+
 }
