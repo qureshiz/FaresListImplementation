@@ -49,7 +49,7 @@ namespace FaresListImplementation
 
         }
 
-        public bool RunExcelMacro(string path, string fileName, string macroName)
+        public bool RunExcelMacro(string path, string fileName, string macroName, bool save)
         {
             Application xlApp = new Application();
             Workbook xlWorkBook;
@@ -67,8 +67,12 @@ namespace FaresListImplementation
             xlApp.DisplayAlerts = false;
             //Call the Macro Test1
             xlApp.Run(macroName);
-
-            xlWorkBook.Save();
+            if (save==true)
+            {
+                xlWorkBook.Save();
+            }
+              
+           
             xlApp.Quit();
             return true;
         }
