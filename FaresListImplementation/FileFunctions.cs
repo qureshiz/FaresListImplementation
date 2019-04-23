@@ -147,10 +147,8 @@ namespace FaresListImplementation
             Application xlApp = new Application();
             Workbook xlWorkBook;
 
-            string pathFileName = Path.Combine(path, fileName);
-
             //Open the Workbook.
-            xlWorkBook = xlApp.Workbooks.Open(pathFileName);
+            xlWorkBook = xlApp.Workbooks.Open(Path.Combine(path, fileName));
 
             //Suppress Excel Alerts
             //https://docs.microsoft.com/en-us/office/vba/api/excel.application.displayalerts
@@ -161,6 +159,27 @@ namespace FaresListImplementation
             var cellValue = workSheet.Range[cellCordinate].Value2;
             return cellValue.ToString();
         }
+
+    }
+    
+    public class cExcel
+    {
+       
+        private static Workbook _Workbook;
+
+        static void main(string path, string fileName)
+        {
+            Application xlApp = new Application();
+            _Workbook = xlApp.Workbooks.Open(Path.Combine(path, fileName));
+        }
+        public Workbook workBook
+            {
+            get
+            {
+                return this._Workbook;
+            }
+
+}
 
     }
 
