@@ -6,6 +6,7 @@ using NUnit.Framework;
 using System;
 using System.Configuration;
 using System.IO;
+using ClosedXML.Excel;
 namespace FaresListImplementation.Tests
 {
     class Global
@@ -21,9 +22,9 @@ namespace FaresListImplementation.Tests
         [Test]
         public void TestFSITestFileXLS_xlsmExists()
         {
-            FileFunctions fileFunction = new FileFunctions();
+            FileFunctions fileFunctions = new FileFunctions();
 
-            Assert.IsTrue(fileFunction.CheckFileExists(Path.Combine(Global.testLocation, Global.fSITest_XLSM)));
+            Assert.IsTrue(fileFunctions.CheckFileExists(Path.Combine(Global.testLocation, Global.fSITest_XLSM)));
         }
     [Test]
         public void CanOpenFSITest_XLSM()
@@ -119,6 +120,22 @@ namespace FaresListImplementation.Tests
                 workBook.Application.Quit();
             }
         }
-    }
+        [Test]
+        public void CanOpenWorkBookCXML()
+        {
+            FileFunctions fileFunctions = new FileFunctions();
+            XLWorkbook workBook = fileFunctions.OpenWorkBookCXML(Global.testLocation, Global.fSITest_XLSM);
+            string type = workBook.GetType().ToString();
+            Assert.IsTrue(workBook.GetType().ToString() == "ClosedXML.Excel.XLWorkbook");
+            workBook.Dispose();
+        }
 
+        public void CanOpenSiteList_XLSM()
+        {
+            FileFunctions fileFunctions = new FileFunctions();
+            Workbook workBook = fileFunctions.OpenExcelWorkBook(Path.Combine(Global.testLocation, Global.));
+            
+        }
+
+    }
 }

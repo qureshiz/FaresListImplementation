@@ -1,9 +1,6 @@
-﻿using System;
-using System.Data;
-using System.IO;
-using System.Data.SqlClient;
+﻿using System.IO;
 using Microsoft.Office.Interop.Excel;
-
+using ClosedXML.Excel;
 //Should we also have a using Microsoft.Office.Interop.Excel?
 
 namespace FaresListImplementation
@@ -160,27 +157,13 @@ namespace FaresListImplementation
             return cellValue.ToString();
         }
 
-    }
-    
-    public class cExcel
+    public XLWorkbook OpenWorkBookCXML(string path, string fileName)
     {
-       
-        private static Workbook _Workbook;
-
-        static void main(string path, string fileName)
-        {
-            Application xlApp = new Application();
-            _Workbook = xlApp.Workbooks.Open(Path.Combine(path, fileName));
-        }
-        public Workbook workBook
-            {
-            get
-            {
-                return this._Workbook;
-            }
-
-}
-
+        string pathFileName = Path.Combine(path, fileName);
+        var workBook = new XLWorkbook(pathFileName);
+            
+            return workBook;
     }
 
+    }
 }
